@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".actividades.JugarActivity" />
-        <activity android:name=".actividades.ConfiguracionActiviy"></activity>
+        <activity android:name=".actividades.ConfiguracionActiviy" />
+        <activity android:name=".actividades.ListaPuntajesActivity"></activity>
     </application>
 
 </manifest>

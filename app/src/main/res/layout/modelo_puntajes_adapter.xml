@@ -3,30 +3,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="12dp"
     android:orientation="vertical">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingTop="49dp"
+        android:background="@drawable/fondo_layout2"
+        android:elevation="100dp">
 
         <TextView
             android:id="@+id/desplegadasModelo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="127dp"
             android:text="Desplegadas" />
 
         <TextView
             android:id="@+id/correctasModelo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="127dp"
             android:text="Correctas" />
 
         <TextView
             android:id="@+id/incorrectasModelo"
-            android:layout_width="match_parent"
+            android:layout_width="122dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginLeft="127dp"
             android:text="Incorrectas" />
     </LinearLayout>
 </LinearLayout>

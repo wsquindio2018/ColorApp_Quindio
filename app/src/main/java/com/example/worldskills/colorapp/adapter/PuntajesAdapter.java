@@ -28,9 +28,9 @@ public class PuntajesAdapter extends RecyclerView.Adapter<PuntajesAdapter.Puntaj
 
     @Override
     public void onBindViewHolder(PuntajesHolder holder, int position) {
-        holder.desplegadas.setText("Desplegadas: " + listaPuntajes.get(position).getDesplegadas());
-        holder.desplegadas.setText("Correctas: " + listaPuntajes.get(position).getCorrectas());
-        holder.desplegadas.setText("Incorrectas: " + listaPuntajes.get(position).getIncorrectas());
+        holder.desplegadas.setText(""+listaPuntajes.get(position).getDesplegadas());
+        holder.correctas.setText(""+listaPuntajes.get(position).getCorrectas());
+        holder.incorrectas.setText(""+listaPuntajes.get(position).getIncorrectas());
     }
 
     @Override

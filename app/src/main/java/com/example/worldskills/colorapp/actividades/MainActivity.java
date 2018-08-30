@@ -1,11 +1,9 @@
 package com.example.worldskills.colorapp.actividades;
 
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.worldskills.colorapp.R;
 import com.example.worldskills.colorapp.entidades.Tipo;
@@ -30,6 +28,7 @@ public class MainActivity extends AppCompatActivity{
                 intent=new Intent(MainActivity.this,JugarActivity.class);
                 break;
             case R.id.puntajes:
+                intent=new Intent(MainActivity.this,ListaPuntajesActivity.class);
                 break;
             case R.id.configuracion:
                 intent=new Intent(MainActivity.this,ConfiguracionActiviy.class);
