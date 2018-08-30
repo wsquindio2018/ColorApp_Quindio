@@ -33,7 +33,7 @@ public class JugarActivity extends AppCompatActivity {
     }
 
 
-    //Se instancias todas las variables button y textview
+    //Este metodo sirve para instanciar todas las variables botones y campos de texto de esta clase
     private void intanciar() {
         bnt1=findViewById(R.id.btn1);
         bnt2=findViewById(R.id.btn2);

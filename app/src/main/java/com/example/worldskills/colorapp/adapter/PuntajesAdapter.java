@@ -13,6 +13,9 @@ import java.util.ArrayList;
 
 public class PuntajesAdapter extends RecyclerView.Adapter<PuntajesAdapter.PuntajesHolder> {
 
+
+    //Esta clase permite acomodar los datos de una lista, los cuales se adaptaran a un modelo creado previamente
+
     public PuntajesAdapter(ArrayList<PuntajesVo> listaPuntajes) {
         this.listaPuntajes = listaPuntajes;
     }

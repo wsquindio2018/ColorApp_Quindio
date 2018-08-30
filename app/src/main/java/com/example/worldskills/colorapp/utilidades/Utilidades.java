@@ -1,5 +1,7 @@
 package com.example.worldskills.colorapp.utilidades;
 
+
+//Esta clase sirve para crear la base de datos
 public class Utilidades {
 
     public static final String TABLA_PUNTAJES = "puntajes";
