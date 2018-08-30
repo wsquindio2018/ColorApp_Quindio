@@ -22,11 +22,13 @@ public class MainActivity extends AppCompatActivity{
     public void onClick(View view) {
         Intent intent=null;
         switch (view.getId()) {
-            case R.id.jugar:intent=new Intent(MainActivity.this,JugarActivity.class);
+            case R.id.jugar:
+                intent=new Intent(MainActivity.this,JugarActivity.class);
                 break;
             case R.id.puntajes:
                 break;
             case R.id.configuracion:
+                intent=new Intent(MainActivity.this,ConfiguracionActiviy.class);
                 break;
         }
         startActivity(intent);
