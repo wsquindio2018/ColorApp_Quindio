@@ -8,6 +8,8 @@
     tools:context=".actividades.MainActivity">
 
     <ImageView
+        android:src="@drawable/logo512x512"
+        android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="300dp" />
 
