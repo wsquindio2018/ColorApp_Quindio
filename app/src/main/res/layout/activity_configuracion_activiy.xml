@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:padding="15dp"
     android:layout_height="match_parent"
     tools:context=".actividades.ConfiguracionActiviy">
 
@@ -56,13 +57,15 @@
         tools:layout_editor_absoluteX="74dp"
         tools:layout_editor_absoluteY="113dp" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="347dp"
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:text="Button" />
+        android:layout_alignParentStart="true"
+        android:background="#0030329F"
+        android:layout_marginStart="0dp"
+        app:srcCompat="@drawable/boton_empezar" />
 
 
 </RelativeLayout>
