@@ -213,7 +213,11 @@ public class JugarActivity extends AppCompatActivity {
             builder.setTitle("Finaliza");
             String mensaje = "";
             mensaje += "Palabras Correctas: " + correctas + "\n";
-            mensaje += "Palabras Incorrectas: " + intentos;
+            if (Tipo.tipo==2){
+                mensaje += "Palabras Incorrectas: " + intentos*(-1);
+            }else if (Tipo.tipo==1){
+                mensaje += "Palabras Incorrectas: " + Tipo.intentos;
+            }
             builder.setMessage(mensaje);
             builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                 @Override
