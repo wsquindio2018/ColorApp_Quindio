@@ -17,10 +17,10 @@
         tools:layout_editor_absoluteX="49dp"
         tools:layout_editor_absoluteY="36dp" />
 
-    <TextView
+    <EditText
         android:id="@+id/campoCantidadIntentos"
-        android:layout_width="236dp"
-        android:layout_height="29dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="89dp"
@@ -30,34 +30,34 @@
         tools:layout_editor_absoluteY="113dp" />
 
 
-    <TextView
+    <EditText
         android:id="@+id/campoTiempoMilisegundos"
         android:layout_width="236dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="99dp"
-        android:hint="Tiempo por palabra, en milisegundos"
+        android:hint="Limite de tiempo en milisegundos"
         android:textAlignment="center"
         android:visibility="invisible"
         tools:layout_editor_absoluteX="74dp"
         tools:layout_editor_absoluteY="113dp" />
 
 
-    <TextView
+    <EditText
         android:id="@+id/campoTiempoPalabra"
         android:layout_width="236dp"
-        android:layout_height="29dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:visibility="invisible"
         android:layout_marginTop="168dp"
-        android:hint="Cantidad de intentos"
+        android:hint="Tiempo por palabra en milisegundos"
         android:textAlignment="center"
         tools:layout_editor_absoluteX="74dp"
         tools:layout_editor_absoluteY="113dp" />
 
     <ImageButton
+        android:onClick="onClick"
         android:padding="10dp"
         android:id="@+id/imageButton"
         android:layout_width="match_parent"

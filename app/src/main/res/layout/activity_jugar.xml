@@ -47,10 +47,12 @@
         android:textSize="20dp" />
 
     <LinearLayout
+        android:id="@+id/sexto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="85dp"
         android:layout_weight="2">
 
         <TextView
@@ -146,6 +148,18 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="18dp"
+        android:clickable="true"
+        android:backgroundTint="@color/colorPrimaryDark"
+        app:srcCompat="@drawable/pausa" />
 
 
 </RelativeLayout>

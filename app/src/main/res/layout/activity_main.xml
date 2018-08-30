@@ -17,25 +17,34 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="5dp">
 
-        <Button
-            android:onClick="onClick"
+        <ImageButton
+            android:layout_margin="5dp"
             android:id="@+id/jugar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <Button
+            android:layout_height="wrap_content"
+            android:background="#0030329F"
             android:onClick="onClick"
+            android:src="@drawable/boton_jugar" />
+
+        <ImageButton
+            android:layout_margin="5dp"
+            android:src="@drawable/boton_puntajes"
+            android:background="#0030329F"
             android:id="@+id/puntajes"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:onClick="onClick" />
 
-        <Button
-            android:onClick="onClick"
+        <ImageButton
+            android:layout_margin="5dp"
+            android:src="@drawable/boton_configuracion"
+            android:background="#0030329F"
             android:id="@+id/configuracion"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:onClick="onClick" />
 
     </LinearLayout>
 

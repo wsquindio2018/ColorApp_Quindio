@@ -2,6 +2,7 @@ package com.example.worldskills.colorapp.actividades;
 
 import android.graphics.Color;
 import android.os.CountDownTimer;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,21 +18,22 @@ import java.util.Random;
 
 public class JugarActivity extends AppCompatActivity {
 
-    TextView palabra, txtDesplegadas, txtCorretas, txtIncorrectas, txtIntentos, txtTiempo,txtTiempoPalabra;
+    TextView palabra, txtDesplegadas, txtCorretas, txtIntentos, txtTiempo, txtTiempoPalabra;
+    FloatingActionButton play;
     Button bnt1, bnt2, bnt3, bnt4;
     ArrayList<String> listaColores;
     ArrayList<String> listaPalabras;
     int numeros[];
     int resultados[];
-    int n, k, numeroC, numeroP, desplegadas, intentos, correctas, tiempoTotal, tiempoPalabra;
+    int n, k, numeroC, numeroP, desplegadas, intentos, correctas, tiempoTotal, tiempoPalabra, pausa, tiempoPausa, numeroPausas = 0, tiempoTo = 1, pausaTo, tiempoPausaTo;
+    boolean activo = false;
     Random rnd;
-    CountDownTimer timerPalabra;
+    CountDownTimer timerPalabra, timerPartida;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jugar);
-
 
         intanciar();
         comprobarTipoJuego();
@@ -40,43 +42,147 @@ public class JugarActivity extends AppCompatActivity {
         bnt1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (intentos == 0) {
-                    termina();
-                } else {
-                    comprobar(1);
+                if (Tipo.tipo == 2) {
+                    if (tiempoTo == 0) {
+                        termina();
+                    } else {
+                        comprobar(1);
+                    }
+                } else if (Tipo.tipo == 1) {
+                    if (intentos == 0) {
+                        termina();
+                    } else {
+                        comprobar(1);
+                    }
                 }
             }
         });
         bnt2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (intentos == 0) {
-                    termina();
-                } else {
-                    comprobar(1);
+                if (Tipo.tipo == 2) {
+                    if (tiempoTo == 0) {
+                        termina();
+                    } else {
+                        comprobar(2);
+                    }
+                } else if (Tipo.tipo == 1) {
+                    if (intentos == 0) {
+                        termina();
+                    } else {
+                        comprobar(2);
+                    }
                 }
             }
         });
         bnt3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (intentos == 0) {
-                    termina();
-                } else {
-                    comprobar(1);
+                if (Tipo.tipo == 2) {
+                    if (tiempoTo == 0) {
+                        termina();
+                    } else {
+                        comprobar(3);
+                    }
+                } else if (Tipo.tipo == 1) {
+                    if (intentos == 0) {
+                        termina();
+                    } else {
+                        comprobar(3);
+                    }
                 }
             }
         });
         bnt4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (intentos == 0) {
-                    termina();
-                } else {
-                    comprobar(1);
+                if (Tipo.tipo == 2) {
+                    if (tiempoTo == 0) {
+                        termina();
+                    } else {
+                        comprobar(4);
+                    }
+                } else if (Tipo.tipo == 1) {
+                    if (intentos == 0) {
+                        termina();
+                    } else {
+                        comprobar(4);
+                    }
                 }
             }
         });
+
+        play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Tipo.tipo == 2) {
+                    if (numeroPausas >= 2) {
+                        Toast.makeText(getApplicationContext(), "Ya utilizaste tus 2 oportunidades de pausar", Toast.LENGTH_SHORT).show();
+                        activo = false;
+                        desactivar();
+                        generarNumeros();
+                        play.setImageResource(R.drawable.pausa);
+                        play.setEnabled(false);
+                    } else {
+                        if (activo == false) {
+                            pausaTo = tiempoPausaTo;
+                            pausa=tiempoPausa;
+                            timerPalabra.cancel();
+                            txtTiempo.setText("Tiempo Total " + pausaTo);
+                            txtTiempoPalabra.setText("Tiempo  " + pausa);
+                            timerPartida.cancel();
+                            play.setImageResource(R.drawable.play);
+                            activo = true;
+                            numeroPausas++;
+                        } else {
+                            play.setImageResource(R.drawable.pausa);
+                            activo = false;
+                            generarNumeros();
+                        }
+                        desactivar();
+                    }
+                } else if (Tipo.tipo == 1) {
+                    if (numeroPausas >= 2) {
+                        Toast.makeText(getApplicationContext(), "Ya utilizaste tus 2 oportunidades de pausar", Toast.LENGTH_SHORT).show();
+                        activo = false;
+                        desactivar();
+                        generarNumeros();
+                        play.setImageResource(R.drawable.pausa);
+                        play.setEnabled(false);
+                    } else {
+                        if (activo == false) {
+                            pausa = tiempoPausa;
+                            txtTiempoPalabra.setText("Tiempo " + pausa);
+                            timerPalabra.cancel();
+                            play.setImageResource(R.drawable.play);
+                            activo = true;
+                            numeroPausas++;
+                        } else {
+                            play.setImageResource(R.drawable.pausa);
+                            activo = false;
+                            generarNumeros();
+                        }
+                        desactivar();
+                    }
+                }
+
+            }
+        });
+    }
+
+    //Desactiva los botones
+    private void desactivar() {
+        if (activo == false) {
+            bnt1.setEnabled(true);
+            bnt2.setEnabled(true);
+            bnt3.setEnabled(true);
+            bnt4.setEnabled(true);
+        } else {
+            bnt1.setEnabled(false);
+            bnt2.setEnabled(false);
+            bnt3.setEnabled(false);
+            bnt4.setEnabled(false);
+        }
     }
 
     //Metodo que se encarga de mostrar una ventana de dialogo con los datos del usuario
@@ -93,6 +199,7 @@ public class JugarActivity extends AppCompatActivity {
                 } else {
                     intentos--;
                 }
+                timerPalabra.cancel();
                 break;
             case 2:
                 if (listaColores.get(resultados[1] - 1).equals(listaColores.get(numeroC))) {
@@ -100,6 +207,7 @@ public class JugarActivity extends AppCompatActivity {
                 } else {
                     intentos--;
                 }
+                timerPalabra.cancel();
                 break;
             case 3:
                 if (listaColores.get(resultados[2] - 1).equals(listaColores.get(numeroC))) {
@@ -107,6 +215,7 @@ public class JugarActivity extends AppCompatActivity {
                 } else {
                     intentos--;
                 }
+                timerPalabra.cancel();
                 break;
             case 4:
                 if (listaColores.get(resultados[3] - 1).equals(listaColores.get(numeroC))) {
@@ -114,9 +223,11 @@ public class JugarActivity extends AppCompatActivity {
                 } else {
                     intentos--;
                 }
+                timerPalabra.cancel();
                 break;
             case 5:
-
+                intentos--;
+                timerPalabra.cancel();
                 break;
             case 6:
                 break;
@@ -124,12 +235,38 @@ public class JugarActivity extends AppCompatActivity {
         generarNumeros();
         txtDesplegadas.setText("Desplegadas " + desplegadas);
         txtCorretas.setText("Correctas " + correctas);
-        txtIntentos.setText("Desplegadas " + intentos);
+        txtIntentos.setText("Intentos " + intentos);
     }
 
     //se comprueba el tipo de juego
     private void comprobarTipoJuego() {
+        if (Tipo.tipo == 1) {
+            intentos = Tipo.intentos;
+            txtTiempo.setVisibility(View.INVISIBLE);
+        } else if (Tipo.tipo == 2) {
+            txtIntentos.setVisibility(View.INVISIBLE);
+            tiempoTotal = Tipo.tiempoPartida;
+            tiempoPartida();
+        }
+        tiempoPalabra = Tipo.tiempoPalabra;
+    }
 
+    //Corre el tiempo por partida en el juego en modo tiempo
+    private void tiempoPartida() {
+        timerPartida = new CountDownTimer(tiempoTotal, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                txtTiempo.setText("Tiempo total " + millisUntilFinished / 1000);
+                tiempoPausaTo = (int) millisUntilFinished / 1000;
+            }
+
+            @Override
+            public void onFinish() {
+                tiempoTo = 0;
+                termina();
+            }
+        };
+        timerPartida.start();
     }
 
     //se almacena en los array todos los datos
@@ -148,20 +285,32 @@ public class JugarActivity extends AppCompatActivity {
         listaPalabras.add("Rojo");
 
         generarNumeros();
-        empezarTiempoPalabra();
     }
 
     //Controla el tiempo por cada palabra
     private void empezarTiempoPalabra() {
-        timerPalabra=new CountDownTimer(Tipo.tiempoPalabra,1000) {
+        timerPalabra = new CountDownTimer(Tipo.tiempoPalabra, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                txtTiempoPalabra.setText("Tiempo "+millisUntilFinished/1000);
+                tiempoPausa = (int) millisUntilFinished / 1000;
+                txtTiempoPalabra.setText("Tiempo " + millisUntilFinished / 1000);
             }
 
             @Override
             public void onFinish() {
-
+                if (Tipo.tipo == 2) {
+                    if (tiempoTo == 0) {
+                        termina();
+                    } else {
+                        comprobar(5);
+                    }
+                } else if (Tipo.tipo == 1) {
+                    if (intentos == 0) {
+                        termina();
+                    } else {
+                        comprobar(5);
+                    }
+                }
             }
         };
         timerPalabra.start();
@@ -198,6 +347,8 @@ public class JugarActivity extends AppCompatActivity {
         bnt4.setBackgroundColor(Color.parseColor(listaColores.get(resultados[3] - 1)));
         palabra.setTextColor(Color.parseColor(listaColores.get(numeroC)));
         palabra.setText(listaPalabras.get(numeroP));
+
+        empezarTiempoPalabra();
     }
 
 
@@ -213,13 +364,10 @@ public class JugarActivity extends AppCompatActivity {
         txtIntentos = findViewById(R.id.intentos);
         txtTiempo = findViewById(R.id.tiempoTotal);
         txtTiempoPalabra = findViewById(R.id.tiempo);
-
-
-        intentos = Tipo.intentos;
-
+        play = findViewById(R.id.play);
 
         txtDesplegadas.setText("Desplegadas " + desplegadas);
         txtCorretas.setText("Correctas " + correctas);
-        txtIntentos.setText("Desplegadas " + intentos);
+        txtIntentos.setText("Intentos " + intentos);
     }
 }
