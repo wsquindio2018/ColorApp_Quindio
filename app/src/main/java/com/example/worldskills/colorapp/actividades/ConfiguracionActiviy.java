@@ -20,8 +20,6 @@ import java.util.ArrayList;
 public class ConfiguracionActiviy extends AppCompatActivity {
 
     //Esta clase permite al usuario configurar la modalidad de juego, las modalidades son(Intentos,Tiempo)
-
-    ImageButton btnEmpezar;
     Spinner tipoJuego;
     int posicion;
     EditText campoIntentos, campoTiempo, campoTiempoPalabra;
@@ -58,7 +56,7 @@ public class ConfiguracionActiviy extends AppCompatActivity {
 
     }
 
-    //Este metodo sirve para ocultar o mostrarlos los campos, dependiendo lo que se seleccione en el spinner
+    //Este metodo sirve para ocultar o mostrarlos los campos, dependiendo de lo  que se seleccione en el spinner
     private void tipoJuego(int position) {
         switch (position) {
             case 1:
@@ -75,7 +73,7 @@ public class ConfiguracionActiviy extends AppCompatActivity {
         }
     }
 
-    //realiza el on click del Image button de la calse configuracion
+    //realiza el on click del Image button de la clase configuracion
     public void onClick(View view) {
         Intent miIntent = new Intent(ConfiguracionActiviy.this, JugarActivity.class);
         if (posicion == 1 && !campoIntentos.getText().toString().equals("")) {

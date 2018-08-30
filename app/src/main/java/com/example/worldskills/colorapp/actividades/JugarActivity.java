@@ -1,20 +1,33 @@
 package com.example.worldskills.colorapp.actividades;
 
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.ContentValues;
+import android.content.DialogInterface;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.CountDownTimer;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.worldskills.colorapp.R;
 import com.example.worldskills.colorapp.entidades.Tipo;
+import com.example.worldskills.colorapp.utilidades.Conexion;
+import com.example.worldskills.colorapp.utilidades.Utilidades;
 
 import java.util.ArrayList;
 import java.util.Random;
+
+import javax.security.auth.DestroyFailedException;
+import javax.security.auth.Destroyable;
 
 public class JugarActivity extends AppCompatActivity {
 
@@ -29,11 +42,15 @@ public class JugarActivity extends AppCompatActivity {
     boolean activo = false;
     Random rnd;
     CountDownTimer timerPalabra, timerPartida;
+    Conexion conn;
+    SQLiteDatabase bd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jugar);
+
+        conn=new Conexion(getApplicationContext(),"Puntos",null,1);
 
         intanciar();
         comprobarTipoJuego();
@@ -49,7 +66,7 @@ public class JugarActivity extends AppCompatActivity {
                         comprobar(1);
                     }
                 } else if (Tipo.tipo == 1) {
-                    if (intentos == 0) {
+                    if (intentos == 1) {
                         termina();
                     } else {
                         comprobar(1);
@@ -67,7 +84,7 @@ public class JugarActivity extends AppCompatActivity {
                         comprobar(2);
                     }
                 } else if (Tipo.tipo == 1) {
-                    if (intentos == 0) {
+                    if (intentos == 1) {
                         termina();
                     } else {
                         comprobar(2);
@@ -85,7 +102,7 @@ public class JugarActivity extends AppCompatActivity {
                         comprobar(3);
                     }
                 } else if (Tipo.tipo == 1) {
-                    if (intentos == 0) {
+                    if (intentos == 1) {
                         termina();
                     } else {
                         comprobar(3);
@@ -103,7 +120,7 @@ public class JugarActivity extends AppCompatActivity {
                         comprobar(4);
                     }
                 } else if (Tipo.tipo == 1) {
-                    if (intentos == 0) {
+                    if (intentos == 1) {
                         termina();
                     } else {
                         comprobar(4);
@@ -126,7 +143,7 @@ public class JugarActivity extends AppCompatActivity {
                     } else {
                         if (activo == false) {
                             pausaTo = tiempoPausaTo;
-                            pausa=tiempoPausa;
+                            pausa = tiempoPausa;
                             timerPalabra.cancel();
                             txtTiempo.setText("Tiempo Total " + pausaTo);
                             txtTiempoPalabra.setText("Tiempo  " + pausa);
@@ -138,6 +155,7 @@ public class JugarActivity extends AppCompatActivity {
                             play.setImageResource(R.drawable.pausa);
                             activo = false;
                             generarNumeros();
+                            desplegadas++;
                         }
                         desactivar();
                     }
@@ -161,6 +179,7 @@ public class JugarActivity extends AppCompatActivity {
                             play.setImageResource(R.drawable.pausa);
                             activo = false;
                             generarNumeros();
+                            desplegadas++;
                         }
                         desactivar();
                     }
@@ -187,6 +206,43 @@ public class JugarActivity extends AppCompatActivity {
 
     //Metodo que se encarga de mostrar una ventana de dialogo con los datos del usuario
     private void termina() {
+        try{
+            timerPalabra.cancel();
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+            builder.setTitle("Finaliza");
+            String mensaje = "";
+            mensaje += "Palabras Correctas: " + correctas + "\n";
+            mensaje += "Palabras Incorrectas: " + intentos;
+            builder.setMessage(mensaje);
+            builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    if (Tipo.tipo == 1) {
+                        registrar();
+                    } else {
+                        finish();
+                    }
+                }
+            });
+            Dialog dialog = builder.create();
+            dialog.show();
+        }catch (Exception e){
+            finish();
+        }
+    }
+
+    //Metodo para registrar cuando se encuentra en tipo de juego por defecto
+    private void registrar() {
+        bd = conn.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(Utilidades.CORRECTAS, correctas);
+        values.put(Utilidades.INCORRECTAS, Tipo.intentos);
+        values.put(Utilidades.DESPLEGADAS, desplegadas);
+
+        bd.insert(Utilidades.TABLA_PUNTAJES, Utilidades.CORRECTAS, values);
+        finish();
     }
 
     //Verifica si esta correcta o incorrecta la tinta de la palabra con el boton que selecciono el usuario
@@ -305,7 +361,7 @@ public class JugarActivity extends AppCompatActivity {
                         comprobar(5);
                     }
                 } else if (Tipo.tipo == 1) {
-                    if (intentos == 0) {
+                    if (intentos == 1) {
                         termina();
                     } else {
                         comprobar(5);
@@ -366,8 +422,13 @@ public class JugarActivity extends AppCompatActivity {
         txtTiempoPalabra = findViewById(R.id.tiempo);
         play = findViewById(R.id.play);
 
+
+        if (Tipo.tipo==1){
+            intentos=Tipo.intentos;
+        }
         txtDesplegadas.setText("Desplegadas " + desplegadas);
         txtCorretas.setText("Correctas " + correctas);
         txtIntentos.setText("Intentos " + intentos);
     }
+
 }

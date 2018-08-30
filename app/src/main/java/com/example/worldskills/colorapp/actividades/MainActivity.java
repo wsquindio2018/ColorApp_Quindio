@@ -18,12 +18,13 @@ public class MainActivity extends AppCompatActivity{
 
     }
 
+    //Controla el evento onclick de los 3 botones de la clase MainActivity
     public void onClick(View view) {
         Intent intent=null;
         switch (view.getId()) {
             case R.id.jugar:
                 Tipo.tipo=1;
-                Tipo.tiempoPalabra=3;
+                Tipo.tiempoPalabra=4000;
                 Tipo.intentos=3;
                 intent=new Intent(MainActivity.this,JugarActivity.class);
                 break;
